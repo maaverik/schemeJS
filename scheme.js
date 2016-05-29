@@ -143,4 +143,4 @@ function schemestr(exp){
 //console.log(parse(program))
 //console.log(eval(parse("(define r 10)")))
 //console.log(eval(parse("(* pi (* r r))")))
-readEvalPrint()
+//readEvalPrint()
