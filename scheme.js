@@ -125,18 +125,18 @@ function eval(x){
 
 function readEvalPrint(){
     while(true){
-        val = eval(parse(prompt('schemeJS>'));
+        val = eval(parse(prompt('>schemeJS')));
         if (val !== undefined)
             console.log(schemestr(val));
     }
 }
 
 function schemestr(exp){
-    if  isinstance(exp, list){
-        return '(' + ' '.join(map(function(){ schemestr(exp)};) + ')'
+    if  (typeof exp === 'object'){
+        return '(' + ' '.join(map(function(){ schemestr(exp)}) + ')')
     }
     else {
-        return str(exp)
+        return String(exp)
     }
 }
 //program = "(begin (define r 10) (* pi (* r r)))"
