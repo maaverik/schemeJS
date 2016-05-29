@@ -55,12 +55,13 @@ function le(a, b)  {	return a <= b;	}
 function eq(a, b)  {	return a === b;	}
 function mod(a, b) {	return a % b;	}
 
-function standardEnv(){
+function createEnv(){
 	env = {};
 	var mathMethods = ['abs', 'acos', 'asin', 'atan', 'atan2', 'ceil', 'cos', 'exp', 'floor', 'log', 'max', 'min', 'pow', 'random', 'round', 'sin', 'sqrt', 'tan'];
 	for (i = 0; i < mathMethods.length; i++) {
 		env[mathMethods[i]] = Math[mathMethods[i]];
 	}
+	env['pi']		 = Math.PI
 	env['+']         = add;
 	env['-']         = sub;
 	env['*']         = mul;
@@ -85,5 +86,44 @@ function standardEnv(){
 	return env;
 }
 
-program = "(begin (define r 10) (* pi (* r r)))"
-console.log(parse(program))
+env = createEnv();
+
+function eval(x){
+	if(typeof x === 'string'){
+		return env[x];
+	}
+	else if(typeof x === 'number'){
+		return x;
+	}
+	else if(x[0] === 'quote'){
+		return x[1];
+	}
+	else if (x[0] === 'if'){
+		var cond  = x[1];
+		var if_   = x[2];
+		var else_ = x[3]
+		if(eval(cond, env)){
+			return eval(if_, env);
+		}
+		else{
+			return eval(else_, env);
+		}
+	}
+	else if(x[0] === 'define'){
+		env[x[1]] = eval(x[2], env);
+	}
+	else{
+		proc = eval(x[0], env);
+		var exps = [];
+		for (i = 0; i < x.length; i += 1) {
+		exps[i] = eval(x[i], env);
+		}
+		var proc = exps.shift();
+		return proc.apply(env, exps);		//func.apply(this, [argsarray])
+	}
+}
+
+//program = "(begin (define r 10) (* pi (* r r)))"
+//console.log(parse(program))
+console.log(eval(parse("(define r 10)")))
+console.log(eval(parse("(* pi (* r r))")))
