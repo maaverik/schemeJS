@@ -123,7 +123,24 @@ function eval(x){
 	}
 }
 
+function readEvalPrint(){
+    while(true){
+        val = eval(parse(prompt('schemeJS>'));
+        if (val !== undefined)
+            console.log(schemestr(val));
+    }
+}
+
+function schemestr(exp){
+    if  isinstance(exp, list){
+        return '(' + ' '.join(map(function(){ schemestr(exp)};) + ')'
+    }
+    else {
+        return str(exp)
+    }
+}
 //program = "(begin (define r 10) (* pi (* r r)))"
 //console.log(parse(program))
-console.log(eval(parse("(define r 10)")))
-console.log(eval(parse("(* pi (* r r))")))
+//console.log(eval(parse("(define r 10)")))
+//console.log(eval(parse("(* pi (* r r))")))
+readEvalPrint()
