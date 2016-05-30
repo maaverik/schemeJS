@@ -119,7 +119,12 @@ function eval(x){
 		exps[i] = eval(x[i], env);
 		}
 		var proc = exps.shift();
-		return proc.apply(env, exps);		//func.apply(this, [argsarray])
+		try{
+			return proc.apply(env, exps);		//func.apply(this, [argsarray])
+		}
+		catch(e){
+			console.log(proc + " is not defined")
+		}
 	}
 }
 
