@@ -1,7 +1,7 @@
 # schemeJS
 A rudimentary scheme interpreter written in Javascript
 
-See it work: maaverik.github.io/schemeJS
+See it work: https://maaverik.github.io/schemeJS/
 
 Most of the scheme commands work just like they do in the standard scheme interpreter.
 
