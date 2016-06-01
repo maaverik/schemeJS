@@ -144,6 +144,32 @@ function schemestr(exp){
         return String(exp)
     }
 }
+
+//Terminal part with jquery
+
+jQuery(function($, undefined) {
+    $('#terminal').terminal(function(command, term) {
+        if (command !== '') {
+            try {
+                var result = eval(parse(command));
+                if (result !== undefined) {
+                    term.echo(schemestr(result));
+                }
+            } catch(e) {
+                term.error(new String(e));
+            }
+        } else {
+           term.echo('');
+        }
+    }, {
+        greetings: 'Elementary Scheme interpreter in JavaScript\n',
+        name: 'schemeJS',
+        height: $(document).height() - 50,
+        prompt: 'schemeJS> '
+    });
+});
+
+
 //program = "(begin (define r 10) (* pi (* r r)))"
 //console.log(parse(program))
 //console.log(eval(parse("(define r 10)")))

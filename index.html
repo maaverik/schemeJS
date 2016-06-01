@@ -2,37 +2,13 @@
 <html>
 <head>
 	<title>Scheme interpreter in Javascript</title>
+	<link href="jquery.terminal-0.10.9.min.css" rel="stylesheet"/>
+</head>
+<body style="background:black;">
+	<div id = "terminal"></div>
 	<script src = "http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
 	<script src="jquery.terminal-0.10.9.min.js"></script>
 	<script src="jquery.mousewheel-min.js"></script>
-	<link href="jquery.terminal-0.10.9.min.css" rel="stylesheet"/>
 	<script type="text/javascript" src="scheme.js"></script>
-</head>
-<body style="background:black;">
-<div id = "bod">
-</div>
-<script type="text/javascript">
-jQuery(function($, undefined) {
-    $('#bod').terminal(function(command, term) {
-        if (command !== '') {
-            try {
-                var result = eval(parse(command));
-                if (result !== undefined) {
-                    term.echo(schemestr(result));
-                }
-            } catch(e) {
-                term.error(new String(e));
-            }
-        } else {
-           term.echo('');
-        }
-    }, {
-        greetings: 'Elementary Scheme interpreter in JavaScript\n',
-        name: 'js_demo',
-        height: $(document).height() - 50,
-        prompt: 'schemeJS> '
-    });
-});
-</script>
 </body>
 </html>
