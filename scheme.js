@@ -136,13 +136,14 @@ function readEvalPrint(){
     }
 }
 
-function schemestr(exp){
-    if  (typeof exp === 'object'){
-        return '(' + ' '.join(map(function(){ schemestr(exp)}) + ')')
+function schemestr(exp) {
+	if (typeof exp === 'object' && exp.indexOf(undefined) != -1) {
+		return 'Syntax Error'
+	}
+    if (typeof exp === 'object'){
+        return '(' + exp.map(schemestr).join(' ') + ')'
     }
-    else {
-        return String(exp)
-    }
+	return String(exp)
 }
 
 //Terminal part with jquery
@@ -154,9 +155,9 @@ jQuery(function($, undefined) {
                 var result = eval(parse(command));
                 if (result !== undefined) {
                     term.echo(schemestr(result));
-                }
+				}
             } catch(e) {
-                term.error(new String(e));
+                term.error('Syntax error resulted in ' + new String(e));
             }
         } else {
            term.echo('');
@@ -170,8 +171,8 @@ jQuery(function($, undefined) {
 });
 
 
-//program = "(begin (define r 10) (* pi (* r r)))"
-//console.log(parse(program))
-//console.log(eval(parse("(define r 10)")))
-//console.log(eval(parse("(* pi (* r r))")))
+// program = "(begin (define r 10) (* pi (* r r)))"
+// console.log(parse(program))
+// console.log(eval(parse("(define r 10)")))
+// console.log(eval(parse("(* pi (* r r))")))
 //readEvalPrint()
