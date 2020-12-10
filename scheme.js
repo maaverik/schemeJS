@@ -137,13 +137,13 @@ function readEvalPrint(){
 }
 
 function schemestr(exp) {
-	if (typeof exp === 'object' && exp.indexOf(undefined) != -1) {
-		return 'Syntax Error'
-	}
+    if (typeof exp === 'object' && exp.indexOf(undefined) != -1) {
+	return 'Syntax Error'
+    }
     if (typeof exp === 'object'){
         return '(' + exp.map(schemestr).join(' ') + ')'
     }
-	return String(exp)
+    return String(exp)
 }
 
 //Terminal part with jquery
@@ -155,7 +155,7 @@ jQuery(function($, undefined) {
                 var result = eval(parse(command));
                 if (result !== undefined) {
                     term.echo(schemestr(result));
-				}
+		}
             } catch(e) {
                 term.error('Syntax error resulted in ' + new String(e));
             }
